@@ -1,8 +1,14 @@
 #/usr/bin/ruby
 require 'securerandom'
+require 'rubygems'
+require 'pdfkit'
+require 'fileutils'
 
 count = 1
 fileNum = ARGV[0].to_i
+
+FileUtils::mkdir_p 'Tests'
+location = "Tests/"
 
 while count <= fileNum do
 	orig = SecureRandom.hex(2)
@@ -19,7 +25,7 @@ while count <= fileNum do
 	testValue9 = SecureRandom.hex(4)
 	testValue10 = SecureRandom.hex(4)
 	
-	HTMLtemplate = {
+	htmltemplate = {
 		"1" => "<TD> a = ? .......<br> int orig = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert<<8);</TD>",
 		"2" => "<TD> b = ? .......<br> int orig = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert<<6);</TD>",
 		"3" => "<TD>AND = ? .......<br> int orig = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert << 8);<br> int b = orig | (insert << 6);<br> int AND = a & b;</TD>",
@@ -35,17 +41,23 @@ while count <= fileNum do
 	}
 
 	fileName = "test" + "#{count}"
-	fileHtml = File.new(fileName + ".html", "w+")
+	htmlFileName = fileName + ".html"
+	pdfFileName = fileName + ".pdf"
+	fileHtml = File.new(location + htmlFileName, "w+")
 	fileHtml.puts "<HTML><BODY>"
 	fileHtml.puts "<TABLE border = 1"
-	fileHtml.puts "<TR>#{HTMLtemplate["1"]} #{HTMLtemplate["2"]}</TR>"
-	fileHtml.puts "<TR>#{HTMLtemplate["3"]} #{HTMLtemplate["4"]}</TR>"
-	fileHtml.puts "<TR>#{HTMLtemplate["5"]} #{HTMLtemplate["6"]}</TR>"
-	fileHtml.puts "<TR>#{HTMLtemplate["7"]} #{HTMLtemplate["8"]}</TR>"
-	fileHtml.puts "<TR>#{HTMLtemplate["9"]} #{HTMLtemplate["10"]}</TR>"
-	fileHtml.puts "<TR>#{HTMLtemplate["11"]} #{HTMLtemplate["12"]}</TR>"
+	fileHtml.puts "<TR>#{htmltemplate["1"]} #{htmltemplate["2"]}</TR>"
+	fileHtml.puts "<TR>#{htmltemplate["3"]} #{htmltemplate["4"]}</TR>"
+	fileHtml.puts "<TR>#{htmltemplate["5"]} #{htmltemplate["6"]}</TR>"
+	fileHtml.puts "<TR>#{htmltemplate["7"]} #{htmltemplate["8"]}</TR>"
+	fileHtml.puts "<TR>#{htmltemplate["9"]} #{htmltemplate["10"]}</TR>"
+	fileHtml.puts "<TR>#{htmltemplate["11"]} #{htmltemplate["12"]}</TR>"
 	fileHtml.puts "</TABLE>"
 	fileHtml.puts "</BODY></HTML>"
 	fileHtml.close()
-	count = count + 1
+
+	kit = PDFKit.new(File.new(location + htmlFileName))
+	kit.to_file(location + pdfFileName)
+	
+	count += 1
 end
