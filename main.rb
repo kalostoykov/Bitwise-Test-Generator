@@ -11,8 +11,18 @@ FileUtils::mkdir_p 'Tests'
 location = "Tests/"
 
 while count <= fileNum do
-	orig = SecureRandom.hex(2)
-	insert = SecureRandom.hex(2)
+	orig1 = SecureRandom.hex(2)
+	orig2 = SecureRandom.hex(2)
+	orig3 = SecureRandom.hex(2)
+	orig4 = SecureRandom.hex(2)
+	orig5 = SecureRandom.hex(2)
+
+	insert1 = SecureRandom.hex(2)
+	insert2 = SecureRandom.hex(2)
+	insert3 = SecureRandom.hex(2)
+	insert4 = SecureRandom.hex(2)
+	insert5 = SecureRandom.hex(2)
+
 	i = SecureRandom.hex(2)
 	value17 = SecureRandom.hex(2)
 	value27 = SecureRandom.hex(2)
@@ -26,11 +36,11 @@ while count <= fileNum do
 	testValue10 = SecureRandom.hex(4)
 	
 	htmltemplate = {
-		"1" => "<TD> a = ? .......<br> int orig = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert<<8);</TD>",
-		"2" => "<TD> b = ? .......<br> int orig = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert<<6);</TD>",
-		"3" => "<TD>AND = ? .......<br> int orig = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert << 8);<br> int b = orig | (insert << 6);<br> int AND = a & b;</TD>",
-		"4" => "<TD>OR = ? .......<br> int orig   = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert << 7);<br> int b = orig | (insert << 5);<br> int AND = a & b;</TD>",
-		"5" => "<TD>OR = ? .......<br> int orig   = 0x#{orig};<br> int insert = 0x#{insert};<br> int a = orig | (insert << 7);<br> int b = orig | (insert << 5);<br> int AND = a ^ b;</TD>",
+		"1" => "<TD> a = ? .......<br> int orig = 0x#{orig1};<br> int insert = 0x#{insert1};<br> int a = orig | (insert<<8);</TD>",
+		"2" => "<TD> b = ? .......<br> int orig = 0x#{orig2};<br> int insert = 0x#{insert2};<br> int a = orig | (insert<<6);</TD>",
+		"3" => "<TD>AND = ? .......<br> int orig = 0x#{orig3};<br> int insert = 0x#{insert3};<br> int a = orig | (insert << 8);<br> int b = orig | (insert << 6);<br> int AND = a & b;</TD>",
+		"4" => "<TD>OR = ? .......<br> int orig   = 0x#{orig4};<br> int insert = 0x#{insert4};<br> int a = orig | (insert << 7);<br> int b = orig | (insert << 5);<br> int AND = a & b;</TD>",
+		"5" => "<TD>OR = ? .......<br> int orig   = 0x#{orig5};<br> int insert = 0x#{insert5};<br> int a = orig | (insert << 7);<br> int b = orig | (insert << 5);<br> int AND = a ^ b;</TD>",
 		"6" => "<TD>left = ? .......<br>int i = 0x#{i};<br>int left = 0x#{i} | (1 << 10);<br></TD>",
 		"7" => "<TD>result =? .......<br>long value1 = 0x#{value17};<br>long value2 = 0x#{value27};<br>int result = (value1 << 3) ^ (value2 >> 2);</TD>",
 		"8" => "<TD>result =? .......<br>int value1 = #{value18};<br>int value2 = #{value28};<br>int result = (value1 << 3) ^ (value2 >> 2);</TD>",
