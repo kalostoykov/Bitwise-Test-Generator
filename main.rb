@@ -15,7 +15,6 @@ answerLocation = "Answers/"
 def compile (htmltemplate, ctemplate, id)
 	b = htmltemplate[id].split(" ")[1]
 	code = "#include <stdio.h>\n int main(){" + ctemplate[id] + "printf(\"%x\", #{b});return 0;}"
-	puts code
 	File.write('code.c', code)
 	`gcc code.c`
 	a = `./a.out`
